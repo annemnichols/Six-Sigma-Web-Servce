@@ -1,0 +1,73 @@
+<h2>Listing quality specifications currently configured</h2>
+
+<table class="table table-bordered table-striped">
+<thead>
+  <tr>
+    <th>Test Name</th>
+    <th>Bias Target</th>
+    <th>Imprecision Target</th>
+	<th>Intra Individual %CV</th>
+	<th>Inter Individual %CV</th>
+	<th>Specification Type</th>
+    <th>Editing</th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tfoot>
+    	<tr>
+        	<td colspan="9"><em>Quality specifications</em></td>
+        </tr>
+ </tfoot>
+
+<% @quality_specifications.each do |quality_specification| %>
+
+</td>
+
+  <tr>
+    <td><%= TestCode.find(quality_specification.test_code_id).testExpansion %></td>
+    <td><%= quality_specification.bias %></td>
+    <td><%= quality_specification.imprecision %></td>
+	<td><%= quality_specification.cvi %></td>
+	<td><%= quality_specification.cvw %></td>
+	<td><%= quality_specification.goaltype %></td>
+    <td><%= link_to 'Show', quality_specification, :class =>"btn btn-info btn-small" %></td>
+    <td><%= link_to 'Edit', edit_quality_specification_path(quality_specification), :class => "btn btn-primary btn-small" %></td>
+    <td><%= link_to 'Destroy', quality_specification, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small" %></td>
+  </tr>
+<% end %>
+</table>
+
+<p>How good does a test need to be? Answering this question will help determine the total allowable error (TEa); the amount of error a test has and is still considered "in control." The laboratory can use several models to determine quality requirements:</p>
+
+<p>Medical usefulness requirements based on the effect of analytical performance on clinical decisions such as:</p>
+<ul>
+<li>Biological variation information.</li>
+<li>Clinicians&#8217; opinions.</li>
+<li>Published professional recommendations from:</li>
+<li>National and international expert bodies and agencies.</li>
+<li>Expert local groups or individuals.</li>
+<li>Performance goals set by:</li>
+<li>Regulatory bodies and agencies.</li>
+<li>Organizers of External Quality Assessment (EQA) schemes.</li>
+<li>Goals based on the current state of the art, which include:</li>
+<li>Interlaboratory comparison programs such as the Unity™ Interlaboratory Program.</li>
+<li>EQA or proficiency testing schemes.</li>
+<li>Current published information on methodology.</li>
+</ul>
+
+<p>The preceding hierarchy is based on the consensus agreement published in the Scandinavian Journal of Clinical and Laboratory Investigation 1999; 59: 585.</p>
+
+<p> Sigma = [(%TEa – %bias)/%CV]</p>
+
+<p>
+  Download:
+  <%= link_to "CSV", quality_specifications_path(format: "csv") %> |
+  <%= link_to "Excel", quality_specifications_path(format: "xls") %>
+</p>
+<br />
+
+<p><%= link_to "New Quality Specifications", new_quality_specification_path, :class =>"btn btn-primary" %></p>
+<p><%= link_to "Import Quality Specifications", new_quality_specification_import_path,:class =>"btn btn-primary" %></p>
+
+

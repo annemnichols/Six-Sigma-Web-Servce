@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Test Code (Read Code):</b>
+  <%= @test_code.readcode %>
+</p>
+
+<p>
+  <b>Test Code (Telepath):</b>
+  <%= @test_code.testCodeText %>
+</p>
+
+<p>
+  <b>Full name:</b>
+  <%= @test_code.testExpansion %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @test_code.notes %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <% if @test_code.active == TRUE %>
+	Active
+  <% else %>
+	Inactive
+  <% end%>
+</p>
+
+<%= link_to 'Edit', edit_test_code_path(@test_code), :class=>"btn btn-success" %> |
+<%= link_to 'Back', test_codes_path, :class=>"btn btn-inverse" %>

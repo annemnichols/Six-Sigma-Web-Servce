@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Test Name:</b>
+  <td><%= render  'common/test_code_id', :object => @quality_specification.test_code_id %></td>
+</p>
+
+<p>
+  <b>Bias Target:</b>
+  <%= @quality_specification.bias %>
+</p>
+
+<p>
+  <b>Imprecision Target:</b>
+  <%= @quality_specification.imprecision %>
+</p>
+
+
+<%= link_to 'Edit', edit_quality_specification_path(@quality_specification), :class=>"btn btn-success" %> |
+<%= link_to 'Back', quality_specifications_path, :class=>"btn btn-inverse" %>
