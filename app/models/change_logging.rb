@@ -1,4 +1,5 @@
 class ChangeLogging < ActiveRecord::Base
+  attr_accessible :logRecord, :user_id, :user_email
   
-  validates :logRecord, :users_id, :presence => true
+  validates :logRecord, :presence => true
 end

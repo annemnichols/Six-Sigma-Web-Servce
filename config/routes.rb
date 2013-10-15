@@ -4,9 +4,8 @@ SixSigmaWebServce::Application.routes.draw do
   resources :users
   
   resources :quality_specifications 
-  resources :quality_specification_imports
+  get 'quality_specifications_init' => 'quality_specifications#initialise_db'
   resources :change_loggings
   get 'change_loggings_deleteall' => 'change_loggings#deleteall'
   resources :test_codes
-  resources :test_code_imports
 end

@@ -1,6 +1,6 @@
 class QualitySpecification < ActiveRecord::Base
    
-  belongs_to :testCode
+  belongs_to :test_code
   
   validates_presence_of :goaltype, :test_code_id
   

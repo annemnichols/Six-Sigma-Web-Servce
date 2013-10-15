@@ -1,6 +1,6 @@
 class ChangeLoggingsController < ApplicationController
   
-  before_filter :authenticate_user!
+  # ßbefore_filter :authenticate_user!
   
   # GET /change_loggings
   # GET /change_loggings.json
@@ -43,7 +43,7 @@ class ChangeLoggingsController < ApplicationController
   # POST /change_loggings
   # POST /change_loggings.json
   def create
-    @change_logging = ChangeLogging.new(params[:change_logging])
+    @change_logging = ChangeLogging.new(params[:change_logging], :user_id => current_user.id, :user_email => current_user.email)
 
     respond_to do |format|
       if @change_logging.save
@@ -63,7 +63,7 @@ class ChangeLoggingsController < ApplicationController
 
     respond_to do |format|
       if @change_logging.update_attributes(params[:change_logging])
-         changeLogging = ChangeLogging.new(:logRecord => 'Log record updated', :users_id => current_user.id)
+         changeLogging = ChangeLogging.new(:logRecord => 'Log record updated', :users_id => current_user.id, :user_email => current_user.email)
          changeLogging.save
         format.html { redirect_to @change_logging, notice: 'Change logging was successfully updated.' }
         format.json { head :no_content }
@@ -80,7 +80,7 @@ class ChangeLoggingsController < ApplicationController
     @change_logging = ChangeLogging.find(params[:id])
     @change_logging.destroy
     
-    changeLogging = ChangeLogging.new(:logRecord => 'Log record deleted', :users_id => current_user.id)
+    changeLogging = ChangeLogging.new(:logRecord => 'Log record deleted', :user_id => current_user.id , :user_email => current_user.email)
     changeLogging.save
 
     respond_to do |format|
@@ -92,7 +92,7 @@ class ChangeLoggingsController < ApplicationController
   def deleteall
     
     ChangeLogging.delete_all
-    changeLogging = ChangeLogging.new(:logRecord => 'Log cleared', :users_id => current_user.id)
+    changeLogging = ChangeLogging.new(:logRecord => 'Log cleared', :user_email => current_user.email)
     changeLogging.save
   end
   

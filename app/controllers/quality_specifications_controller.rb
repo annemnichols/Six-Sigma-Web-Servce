@@ -1,6 +1,21 @@
 class QualitySpecificationsController < ApplicationController
   
-  before_filter :authenticate_user!
+ # before_filter :authenticate_user!
+  
+  def initialise_db
+  
+  	sql = "SELECT * FROM quality_specifications, test_codes WHERE quality_specifications.test_code_id = test_codes.id"
+  	
+  	@quality_specifications = QualitySpecification.find_by_sql(sql)
+  	
+  	
+  	respond_to do |format|
+  		format.json
+  	end
+  
+  
+  end
+  
   
   
   # GET /quality_specifications
