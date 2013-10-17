@@ -17,10 +17,11 @@ gem 'simple_form', '>= 3.0.0.rc'
 gem 'thin'
 gem 'roo'
 gem 'protected_attributes'
-
+gem 'json'
 gem 'rabl'
 # Also add either `oj` or `yajl-ruby` as the JSON parser
-gem 'oj'
+# gem 'oj'
+gem 'yajl-ruby'
 
 
 group :development do
