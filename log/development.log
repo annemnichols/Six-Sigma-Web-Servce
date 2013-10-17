@@ -19678,3 +19678,18 @@ Processing by TestCodesController#index as JSON
   [1m[36mTestCode Load (0.9ms)[0m  [1mSELECT `test_codes`.* FROM `test_codes`[0m
   Rendered test_codes/index.json.rabl (117.2ms)
 Completed 200 OK in 121ms (Views: 119.1ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/test_codes.json" for 127.0.0.1 at 2013-10-17 12:21:58 +0100
+Processing by TestCodesController#index as JSON
+  [1m[35mTestCode Load (9.6ms)[0m  SELECT `test_codes`.* FROM `test_codes` ORDER BY `test_codes`.`id` ASC LIMIT 1
+  [1m[36mTestCode Load (1.0ms)[0m  [1mSELECT `test_codes`.* FROM `test_codes`[0m
+  Rendered test_codes/index.json.rabl (62.9ms)
+Completed 200 OK in 66ms (Views: 54.8ms | ActiveRecord: 10.6ms)
+
+
+Started GET "/quality_specifications_init.json" for 127.0.0.1 at 2013-10-17 12:21:58 +0100
+Processing by QualitySpecificationsController#initialise_db as JSON
+  [1m[35mQualitySpecification Load (2.3ms)[0m  SELECT * FROM quality_specifications, test_codes WHERE quality_specifications.test_code_id = test_codes.id
+  Rendered quality_specifications/initialise_db.json.rabl (39.9ms)
+Completed 200 OK in 64ms (Views: 43.5ms | ActiveRecord: 2.3ms)
