@@ -11,7 +11,7 @@ gem 'bootstrap-sass'
 gem 'cancan'
 gem 'devise'
 gem 'figaro'
-gem 'mysql2'
+gem 'pg'
 gem 'rolify'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'thin'
@@ -22,6 +22,8 @@ gem 'rabl'
 # Also add either `oj` or `yajl-ruby` as the JSON parser
 # gem 'oj'
 gem 'yajl-ruby'
+
+gem 'rails_12factor', group: :production
 
 
 group :development do
