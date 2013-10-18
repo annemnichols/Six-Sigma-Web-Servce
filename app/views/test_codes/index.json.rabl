@@ -1,3 +1,3 @@
 object @test_codes
 
-attributes :id, :testCodeText, :testExpansion, :notes, :active, :readcode, :matrix_type, :created_at, :updated_at
+attributes :id, :testcodetext, :testexpansion, :notes, :active, :readcode, :matrix_type, :created_at, :updated_at

@@ -1,6 +1,6 @@
 class TestCode < ActiveRecord::Base
   has_many :quality_specifications
-  attr_accessible  :testCodeText,	:testExpansion,	:notes, :active, :readcode
+  attr_accessible  :testcodetext,	:testexpansion,	:notes, :active, :readcode
 
 require 'csv'
 

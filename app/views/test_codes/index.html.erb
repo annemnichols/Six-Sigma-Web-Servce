@@ -21,14 +21,14 @@
     </tfoot>
 <% @test_codes.each do |test_code| %>
   <tr>
-	<td><%=test_code.testCodeText %> </td>
+	<td><%=test_code.testcodetext %> </td>
 	<td><%=test_code.notes %> </td>
 	<td><% if test_code.active == TRUE %>
 	Active
   <% else %>
 	Inactive
   <% end%></td>
-	<td><%=test_code.testExpansion %> </td>
+	<td><%=test_code.testexpansion %> </td>
 	<td><%=test_code.id %> </td>
     <td><%= link_to 'Show', test_code, :class => "btn btn-info btn-small"   %></td>
     <td><%= link_to 'Edit', edit_test_code_path(test_code), :class => "btn btn-primary btn-small"   %></td>
