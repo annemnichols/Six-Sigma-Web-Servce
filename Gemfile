@@ -20,6 +20,7 @@ gem 'protected_attributes'
 gem 'json'
 gem 'rabl'
 gem 'unicorn'
+gem 'yaml_db', github: 'jetthoughts/yaml_db', ref: 'fb4b6bd7e12de3cffa93e0a298a1e5253d7e92ba'
 # Also add either `oj` or `yajl-ruby` as the JSON parser
 # gem 'oj'
 gem 'yajl-ruby'
