@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130929204213) do
+ActiveRecord::Schema.define(version: 20131018205105) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "change_loggings", force: true do |t|
     t.datetime "dateTimeLogged"
@@ -28,13 +31,13 @@ ActiveRecord::Schema.define(version: 20130929204213) do
     t.integer  "test_code_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "cvi"
-    t.float    "cvw"
+    t.decimal  "cvi"
+    t.decimal  "cvw"
     t.string   "goaltype"
     t.string   "ref"
-    t.float    "te"
-    t.float    "cv_d"
-    t.float    "bias_d"
+    t.decimal  "te"
+    t.decimal  "cv_d"
+    t.decimal  "bias_d"
     t.string   "sample_type"
     t.integer  "users_id"
   end
@@ -51,14 +54,14 @@ ActiveRecord::Schema.define(version: 20130929204213) do
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "test_codes", force: true do |t|
-    t.string   "testCodeText"
-    t.string   "testExpansion"
     t.string   "notes"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "readcode"
     t.string   "matrix_type"
+    t.string   "testcodetext"
+    t.string   "testexpansion"
   end
 
   create_table "users", force: true do |t|

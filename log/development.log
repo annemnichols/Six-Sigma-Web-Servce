@@ -19708,3 +19708,122 @@ Processing by QualitySpecificationsController#initialise_db as JSON
   [1m[36mQualitySpecification Load (4.5ms)[0m  [1mSELECT * FROM quality_specifications, test_codes WHERE quality_specifications.test_code_id = test_codes.id[0m
   Rendered quality_specifications/initialise_db.json.rabl (39.8ms)
 Completed 200 OK in 117ms (Views: 44.6ms | ActiveRecord: 4.5ms)
+  [1m[36m (8.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (12.6ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to DeviseCreateUsers (20130905095531)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (23.1ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) DEFAULT '' NOT NULL, "encrypted_password" character varying(255) DEFAULT '' NOT NULL, "reset_password_token" character varying(255), "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying(255), "last_sign_in_ip" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.9ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35mSQL (6.8ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130905095531"]]
+  [1m[36m (6.2ms)[0m  [1mCOMMIT[0m
+Migrating to AddNameToUsers (20130905095533)
+  [1m[35m (6.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "users" ADD COLUMN "name" character varying(255)[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130905095533"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to RolifyCreateRoles (20130905095536)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.6ms)[0m  [1mCREATE TABLE "roles" ("id" serial primary key, "name" character varying(255), "resource_id" integer, "resource_type" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users_roles" ("user_id" integer, "role_id" integer) 
+  [1m[36m (0.8ms)[0m  [1mCREATE INDEX "index_roles_on_name" ON "roles" ("name")[0m
+  [1m[35m (1.0ms)[0m  CREATE INDEX "index_roles_on_name_and_resource_type_and_resource_id" ON "roles" ("name", "resource_type", "resource_id")
+  [1m[36m (0.9ms)[0m  [1mCREATE INDEX "index_users_roles_on_user_id_and_role_id" ON "users_roles" ("user_id", "role_id")[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130905095536"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to Create (20130905101213)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "quality_specifications" ("id" serial primary key, "testCode" character varying(255), "bias" float, "imprecision" float, "test_code_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.8ms)[0m  CREATE INDEX "index_quality_specifications_on_testCode" ON "quality_specifications" ("testCode")
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130905101213"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AlterQualitySpecifications (20130905101336)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "quality_specifications" DROP "testCode"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130905101336"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+Migrating to CreateTestCodes (20130905101508)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.9ms)[0m  CREATE TABLE "test_codes" ("id" serial primary key, "testCodeText" character varying(255), "testExpansion" character varying(255), "notes" character varying(255), "active" boolean, "testCode" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130905101508"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AlterSpecifications (20130905101725)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE "quality_specifications" ADD COLUMN "cvi" decimal
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "quality_specifications" ADD COLUMN "cvw" decimal[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "quality_specifications" ADD COLUMN "goaltype" character varying(255)
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "test_codes" ADD COLUMN "readcode" character varying(255)[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "test_codes" DROP "testCode"
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130905101725"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to AlterSpecificationAddSpecificationReference (20130905102110)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "quality_specifications" ADD COLUMN "ref" character varying(255)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130905102110"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AlterSpecificationAddSpecificationTe (20130905103936)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "quality_specifications" ADD COLUMN "te" decimal
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "quality_specifications" ADD COLUMN "cv_d" decimal[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "quality_specifications" ADD COLUMN "bias_d" decimal
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130905103936"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to AlterSpecificationAddSpecificationSampleType (20130905104213)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "quality_specifications" ADD COLUMN "sample_type" character varying(255)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130905104213"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to AddChangeLogging (20130905104350)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "change_loggings" ("id" serial primary key, "dateTimeLogged" timestamp, "logRecord" character varying(255), "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "quality_specifications" ADD COLUMN "users_id" integer[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130905104350"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddMatrix (20130929180751)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "test_codes" ADD COLUMN "matrix_type" character varying(255)[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130929180751"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddUserId (20130929204213)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (1.5ms)[0m  [1mALTER TABLE "change_loggings" ADD COLUMN "user_email" character varying(255)[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "change_loggings" ADD COLUMN "user_id" character varying(255)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130929204213"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-18 21:39:12 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by HomeController#index as HTML
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users"
+  Rendered home/index.html.erb within layouts/application (6.4ms)
+  Rendered layouts/_navigation.html.erb (7.5ms)
+  Rendered layouts/_messages.html.erb (0.4ms)
+Completed 200 OK in 207ms (Views: 191.0ms | ActiveRecord: 2.4ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to Lowercase (20131018205105)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "test_codes" DROP "testCode"[0m
+PG::UndefinedColumn: ERROR:  column "testCode" of relation "test_codes" does not exist
+: ALTER TABLE "test_codes" DROP "testCode"
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to Lowercase (20131018205105)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.3ms)[0m  [1mALTER TABLE "test_codes" DROP "testCodeText"[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "test_codes" DROP "testExpansion"
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "test_codes" ADD COLUMN "testcodetext" character varying(255)[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "test_codes" ADD COLUMN "testexpansion" character varying(255)
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131018205105"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+DEPRECATION WARNING: Relation#all is deprecated. If you want to eager-load a relation, you can call #load (e.g. `Post.where(published: true).load`). If you want to get an array of records from a relation, you can call #to_a (e.g. `Post.where(published: true).to_a`). (called from block (2 levels) in <top (required)> at /Users/cwebster/Six-Sigma-Web-Servce/lib/tasks/export.rake:4)
+  [1m[36mTestCode Load (4.0ms)[0m  [1mSELECT "test_codes".* FROM "test_codes" ORDER BY "test_codes".id ASC[0m
+DEPRECATION WARNING: Relation#all is deprecated. If you want to eager-load a relation, you can call #load (e.g. `Post.where(published: true).load`). If you want to get an array of records from a relation, you can call #to_a (e.g. `Post.where(published: true).to_a`). (called from block (2 levels) in <top (required)> at /Users/cwebster/Six-Sigma-Web-Servce/lib/tasks/export.rake:8)
+  [1m[35mQualitySpecification Load (3.5ms)[0m  SELECT "quality_specifications".* FROM "quality_specifications" ORDER BY "quality_specifications".id ASC
+DEPRECATION WARNING: Relation#all is deprecated. If you want to eager-load a relation, you can call #load (e.g. `Post.where(published: true).load`). If you want to get an array of records from a relation, you can call #to_a (e.g. `Post.where(published: true).to_a`). (called from block (2 levels) in <top (required)> at /Users/cwebster/Six-Sigma-Web-Servce/lib/tasks/export.rake:4)
+  [1m[36mTestCode Load (2.7ms)[0m  [1mSELECT "test_codes".* FROM "test_codes" ORDER BY "test_codes".id ASC[0m
+DEPRECATION WARNING: Relation#all is deprecated. If you want to eager-load a relation, you can call #load (e.g. `Post.where(published: true).load`). If you want to get an array of records from a relation, you can call #to_a (e.g. `Post.where(published: true).to_a`). (called from block (2 levels) in <top (required)> at /Users/cwebster/Six-Sigma-Web-Servce/lib/tasks/export.rake:8)
+  [1m[35mQualitySpecification Load (3.9ms)[0m  SELECT "quality_specifications".* FROM "quality_specifications" ORDER BY "quality_specifications".id ASC
