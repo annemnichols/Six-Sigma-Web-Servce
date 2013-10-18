@@ -19,6 +19,7 @@ gem 'roo'
 gem 'protected_attributes'
 gem 'json'
 gem 'rabl'
+gem 'unicorn'
 # Also add either `oj` or `yajl-ruby` as the JSON parser
 # gem 'oj'
 gem 'yajl-ruby'
